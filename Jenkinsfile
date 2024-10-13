@@ -47,6 +47,10 @@ pipeline {
                 docker stop zap juice-shop
                 docker rm zap
             '''
+            echo 'Archiving results...'
+            archiveArtifacts artifacts: 'results/**/*', fingerprint: true, allowEmptyArchive: true
+            echo 'Sending reports to DefectDojo...'
+            defectDojoPublisher(artifact: 'results/zap_xml_report.xml', productName: 'Juice Shop', scanType: 'ZAP Scan', engagementName: 'maciej.polak@xtb.com')
         }
 
     }
