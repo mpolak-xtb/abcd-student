@@ -22,12 +22,18 @@ pipeline {
         }
         stage('DAST') {
             steps {
-                sh '''
+//                 sh '''
+//                      docker run -it --name zap \
+//                                     -v C:/Users/polak/IdeaProjects/abcd-student/.zap:/zap/wrk/:rw \
+//                                     -t ghcr.io/zaproxy/zaproxy:stable bash -c \
+//                                     "zap.sh -cmd -addonupdate; zap.sh -cmd -addoninstall communityScripts -addoninstall pscanrulesAlpha -addoninstall pscanrulesBeta -autorun /zap/wrk/passive.yaml --user root" \
+//                                     || true
+//                      '''
+
+                     sh '''
                      docker run -it --name zap \
                                     -v C:/Users/polak/IdeaProjects/abcd-student/.zap:/zap/wrk/:rw \
-                                    -t ghcr.io/zaproxy/zaproxy:stable bash -c \
-                                    "zap.sh -cmd -addonupdate; zap.sh -cmd -addoninstall communityScripts -addoninstall pscanrulesAlpha -addoninstall pscanrulesBeta -autorun /zap/wrk/passive.yaml --user root" \
-                                    || true
+                                    -t ghcr.io/zaproxy/zaproxy:stable bash touch /zap/wrk/reports/test_file.txt
                      '''
             }
             post {
