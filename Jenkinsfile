@@ -30,7 +30,7 @@ pipeline {
 //                                     || true
 //                      '''
                 sh '''
-                docker run --rm -it -v /mnt/c/users/polak/IdeaProjects/abcd-student/.zap:/zap/wrk ghcr.io/zaproxy/zaproxy:stable ls /zap/wrk
+                docker run -v /mnt/c/users/polak/IdeaProjects/abcd-student/.zap:/zap/wrk ghcr.io/zaproxy/zaproxy:stable ls /zap/wrk
 
                 '''
 
