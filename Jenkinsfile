@@ -32,7 +32,7 @@ pipeline {
 
                      sh '''
                      docker run --name zap \
-                                    -v C:/Users/polak/IdeaProjects/abcd-student/.zap:/zap/wrk/:rw ghcr.io/zaproxy/zaproxy:stable bash touch /zap/wrk/reports/test_file.txt
+                                    -v C:/Users/polak/IdeaProjects/abcd-student/.zap:/zap/wrk/:rw ghcr.io/zaproxy/zaproxy:stable touch /zap/wrk/reports/test_file.txt
                      '''
             }
             post {
