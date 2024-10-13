@@ -19,13 +19,6 @@ pipeline {
                             -p 3000:3000 bkimminich/juice-shop
                         '''
             }
-            post {
-                                    always {
-                                        sh '''
-                                            docker stop juice-shop
-                                        '''
-                                    }
-                                }
         }
         stage('DAST') {
             steps {
