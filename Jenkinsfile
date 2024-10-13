@@ -23,7 +23,7 @@ pipeline {
         stage('DAST') {
             steps {
                 sh '''
-                     docker run --name zap \
+                     docker run -it --name zap \
                                     -v C:/Users/polak/IdeaProjects/abcd-student/.zap:/zap/wrk/:rw \
                                     -t ghcr.io/zaproxy/zaproxy:stable bash -c \
                                     "zap.sh -cmd -addonupdate; zap.sh -cmd -addoninstall communityScripts -addoninstall pscanrulesAlpha -addoninstall pscanrulesBeta -autorun /zap/wrk/passive.yaml --user root" \
