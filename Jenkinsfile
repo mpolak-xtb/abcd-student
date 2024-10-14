@@ -25,15 +25,11 @@ pipeline {
                 sh '''
                      docker run --name osv \
                                     -v C:/Users/polak/IdeaProjects/abcd-student:/src/:rw \
+                                    -w /src \
                                     -t ghcr.io/google/osv-scanner:latest bash -c \
                                     "osv-scanner scan --lockfile package-lock.json --output scan-results.txt" \
                                     || true
                      '''
-
-//                      sh '''
-//                      docker run --name zap \
-//                                     -v C:/Users/polak/IdeaProjects/abcd-student/.zap:/zap/wrk/:rw ghcr.io/zaproxy/zaproxy:stable mkdir -p /zap/wrk/reports touch /zap/wrk/reports/test_file.txt
-//                      '''
             }
             post {
                     always {
