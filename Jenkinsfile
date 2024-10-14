@@ -35,11 +35,10 @@ pipeline {
             }
             post {
                     always {
-//                         sh '''
-//                             mkdir -p ${WORKSPACE}/results
-//                             docker cp osv:/src/scan-results.txt ${WORKSPACE}/results/scan-results.txt
-//
-//                         '''
+                        sh '''
+
+
+                        '''
                     }
                 }
         }
