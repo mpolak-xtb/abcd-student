@@ -22,7 +22,8 @@ pipeline {
         }
         stage('osv-scanner') {
             steps {
-            sh 'osv-scanner scan --lockfile package-lock.json --format json --output results/sca-osv-scanner.json'
+            sh 'mkdir -p ${WORKSPACE}/results'
+            sh 'osv-scanner scan --lockfile package-lock.json --format json --output ${WORKSPACE}/results/sca-osv-scanner.json'
 //                 sh '''
 //                      docker run --name osv \
 //                                     -v C:/Users/polak/IdeaProjects/abcd-student/.zap:/src/:rw \
@@ -34,11 +35,11 @@ pipeline {
             }
             post {
                     always {
-                        sh '''
-                            mkdir -p ${WORKSPACE}/results
-                            docker cp osv:/src/scan-results.txt ${WORKSPACE}/results/scan-results.txt
-
-                        '''
+//                         sh '''
+//                             mkdir -p ${WORKSPACE}/results
+//                             docker cp osv:/src/scan-results.txt ${WORKSPACE}/results/scan-results.txt
+//
+//                         '''
                     }
                 }
         }
