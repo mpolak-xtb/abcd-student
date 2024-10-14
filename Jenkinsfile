@@ -24,7 +24,7 @@ pipeline {
             steps {
                 sh '''
                      docker run --name osv \
-                                    -v C:/Users/polak/IdeaProjects/abcd-student:/src/:rw \
+                                    -v C:/Users/polak/IdeaProjects/abcd-student/.zap:/src/:rw \
                                     -w /src \
                                     -t ghcr.io/google/osv-scanner:latest bash -c \
                                     "osv-scanner scan --lockfile package-lock.json --output scan-results.txt" \
