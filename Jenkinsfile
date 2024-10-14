@@ -46,13 +46,12 @@ pipeline {
     post {
     always {
             sh '''
-                docker stop osv juice-shop
-                docker rm osv
+                docker stop juice-shop
             '''
             echo 'Archiving results...'
             archiveArtifacts artifacts: 'results/**/*', fingerprint: true, allowEmptyArchive: true
             echo 'Sending reports to DefectDojo...'
-//             defectDojoPublisher(artifact: 'results/zap_xml_report.xml', productName: 'Juice Shop', scanType: 'ZAP Scan', engagementName: 'maciej.polak@xtb.com')
+            defectDojoPublisher(artifact: 'results/sca-osv-scanner.json', productName: 'Juice Shop', scanType: 'OSV Scan', engagementName: 'maciej.polak@xtb.com')
         }
 
     }
