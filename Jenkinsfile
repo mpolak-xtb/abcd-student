@@ -22,14 +22,15 @@ pipeline {
         }
         stage('osv-scanner') {
             steps {
-                sh '''
-                     docker run --name osv \
-                                    -v C:/Users/polak/IdeaProjects/abcd-student/.zap:/src/:rw \
-                                    -w /src \
-                                    -t ghcr.io/google/osv-scanner:latest bash -c \
-                                    "ls; osv-scanner scan --lockfile package-lock.json --output scan-results.txt" \
-                                    || true
-                     '''
+            sh 'osv-scanner scan --lockfile package-lock.json --format json --output results/sca-osv-scanner.json'
+//                 sh '''
+//                      docker run --name osv \
+//                                     -v C:/Users/polak/IdeaProjects/abcd-student/.zap:/src/:rw \
+//                                     -w /src \
+//                                     -t ghcr.io/google/osv-scanner:latest bash -c \
+//                                     "ls; osv-scanner scan --lockfile package-lock.json --output scan-results.txt" \
+//                                     || true
+//                      '''
             }
             post {
                     always {
