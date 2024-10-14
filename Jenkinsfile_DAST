@@ -20,13 +20,13 @@ pipeline {
                         '''
             }
         }
-        stage('osv-scanner') {
+        stage('DAST') {
             steps {
                 sh '''
-                     docker run --name osv \
-                                    -v C:/Users/polak/IdeaProjects/abcd-student:/src/:rw \
-                                    -t ghcr.io/google/osv-scanner:stable bash -c \
-                                    "osv-scanner -L package-lock.json --output scan-results.txt" \
+                     docker run --name zap \
+                                    -v C:/Users/polak/IdeaProjects/abcd-student/.zap:/zap/wrk/:rw \
+                                    -t ghcr.io/zaproxy/zaproxy:stable bash -c \
+                                    "mkdir -p /zap/wrk/reports; zap.sh -cmd -addonupdate; zap.sh -cmd -addoninstall communityScripts -addoninstall pscanrulesAlpha -addoninstall pscanrulesBeta -autorun /zap/wrk/passive.yaml --user root" \
                                     || true
                      '''
 
@@ -39,8 +39,8 @@ pipeline {
                     always {
                         sh '''
                             mkdir -p ${WORKSPACE}/results
-                            docker cp osv:/src/scan-results.txt ${WORKSPACE}/results/scan-results.txt
-
+                            docker cp zap:/zap/wrk/reports/zap_xml_report.xml ${WORKSPACE}/results/zap_xml_report.xml
+                            docker cp zap:/zap/wrk/reports/zap_html_report.html ${WORKSPACE}/results/zap_html_report.html
                         '''
                     }
                 }
@@ -49,13 +49,13 @@ pipeline {
     post {
     always {
             sh '''
-                docker stop osv juice-shop
-                docker rm osv
+                docker stop zap juice-shop
+                docker rm zap
             '''
             echo 'Archiving results...'
             archiveArtifacts artifacts: 'results/**/*', fingerprint: true, allowEmptyArchive: true
             echo 'Sending reports to DefectDojo...'
-//             defectDojoPublisher(artifact: 'results/zap_xml_report.xml', productName: 'Juice Shop', scanType: 'ZAP Scan', engagementName: 'maciej.polak@xtb.com')
+            defectDojoPublisher(artifact: 'results/zap_xml_report.xml', productName: 'Juice Shop', scanType: 'ZAP Scan', engagementName: 'maciej.polak@xtb.com')
         }
 
     }
