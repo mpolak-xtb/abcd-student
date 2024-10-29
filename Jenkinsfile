@@ -23,7 +23,7 @@ pipeline {
         stage('truffle') {
             steps {
             sh 'mkdir -p ${WORKSPACE}/results'
-            sh 'trufflehog git file://. --only-verified --bare --branch main --json ${WORKSPACE}/results/truffle-scanner.json'
+            sh 'trufflehog git file://. --only-verified --bare --branch main --json > ${WORKSPACE}/results/truffle-scanner.json'
 //             sh 'osv-scanner scan --lockfile package-lock.json --format json --output ${WORKSPACE}/results/sca-osv-scanner.json'
 //                 sh '''
 //                      docker run --name osv \
