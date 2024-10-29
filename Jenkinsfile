@@ -54,7 +54,7 @@ pipeline {
             echo 'Archiving results...'
             archiveArtifacts artifacts: 'results/**/*', fingerprint: true, allowEmptyArchive: true
             echo 'Sending reports to DefectDojo...'
-//             defectDojoPublisher(artifact: 'results/truffle-scanner.json', productName: 'Juice Shop', scanType: 'Semgrep JSON Report', engagementName: 'maciej.polak@xtb.com')
+            defectDojoPublisher(artifact: 'results/semgrep-scanner.json', productName: 'Juice Shop', scanType: 'Semgrep JSON Report', engagementName: 'maciej.polak@xtb.com')
         }
 
     }
