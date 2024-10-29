@@ -23,7 +23,7 @@ pipeline {
         stage('semgrep') {
             steps {
             sh 'mkdir -p ${WORKSPACE}/results'
-            sh 'semgrep --config p/gitlab --gitlab-sast'
+            sh 'semgrep --config p/gitlab --gitlab-sast --json > wynik_skanowania.json'
 //             sh 'trufflehog git file://. --branch main --json > ${WORKSPACE}/results/truffle-scanner.json'
 //             sh 'trufflehog git file://. --branch main --json > ${WORKSPACE}/results/truffle-scanner.json'
 //             sh 'osv-scanner scan --lockfile package-lock.json --format json --output ${WORKSPACE}/results/sca-osv-scanner.json'
