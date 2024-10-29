@@ -25,7 +25,7 @@ pipeline {
             sh 'mkdir -p ${WORKSPACE}/results'
 //             sh 'trufflehog git file://. --branch main'
 //             sh 'trufflehog git file://. --branch main --json > ${WORKSPACE}/results/truffle-scanner.json'
-            sh 'trufflehog git file://. --branch main > ${WORKSPACE}/results/truffle-scanner.txt'
+            sh 'trufflehog git file://. --branch main --json > ${WORKSPACE}/results/truffle-scanner.json'
 //             sh 'osv-scanner scan --lockfile package-lock.json --format json --output ${WORKSPACE}/results/sca-osv-scanner.json'
 //                 sh '''
 //                      docker run --name osv \
@@ -54,7 +54,7 @@ pipeline {
             echo 'Archiving results...'
             archiveArtifacts artifacts: 'results/**/*', fingerprint: true, allowEmptyArchive: true
             echo 'Sending reports to DefectDojo...'
-            defectDojoPublisher(artifact: 'results/truffle-scanner.txt', productName: 'Juice Shop', scanType: 'Trufflehog Scan', engagementName: 'maciej.polak@xtb.com')
+            defectDojoPublisher(artifact: 'results/truffle-scanner.json', productName: 'Juice Shop', scanType: 'Trufflehog Scan', engagementName: 'maciej.polak@xtb.com')
         }
 
     }
