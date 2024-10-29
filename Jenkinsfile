@@ -24,7 +24,7 @@ pipeline {
             steps {
             sh 'mkdir -p ${WORKSPACE}/results'
 //             sh 'trufflehog git file://. --only-verified --branch main'
-            sh 'trufflehog git file://. --only-verified --branch main --json > ${WORKSPACE}/results/truffle-scanner.json'
+            sh 'trufflehog git file://. --branch main --json > ${WORKSPACE}/results/truffle-scanner.json'
 //             sh 'osv-scanner scan --lockfile package-lock.json --format json --output ${WORKSPACE}/results/sca-osv-scanner.json'
 //                 sh '''
 //                      docker run --name osv \
